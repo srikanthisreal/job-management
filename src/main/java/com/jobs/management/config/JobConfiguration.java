@@ -70,20 +70,24 @@ public class JobConfiguration {
 	public JdbcBatchItemWriter<User> writer(final DataSource dataSource) {
 		return new JdbcBatchItemWriterBuilder<User>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO User (FIRSTNAME, LASTNAME) VALUES (:firstName, :lastName)")
-				.dataSource(dataSource)
+				.sql("INSERT INTO User (FIRSTNAME, LASTNAME) VALUES (:firstName, :lastName)").dataSource(dataSource)
 				.build();
 	}
 
 	@Bean
 	public Job importUserJob(NotificationListener listener, Step step1) {
-		return jobBuilderFactory.get("importUserJob").incrementer(new RunIdIncrementer()).listener(listener).flow(step1)
+		return jobBuilderFactory.get("importUserJob")
+				.incrementer(new RunIdIncrementer())
+				.listener(listener)
+				.flow(step1)
 				.end().build();
 	}
 
 	@Bean
 	public Step step1(JdbcBatchItemWriter<User> writer) {
-		return stepBuilderFactory.get("step1").<User, User>chunk(10).reader(reader()).processor(processor())
+		return stepBuilderFactory.get("step1")
+				.<User, User>chunk(10).reader(reader())
+				.processor(processor())
 				.writer(writer).build();
 	}
 

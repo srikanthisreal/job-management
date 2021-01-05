@@ -23,10 +23,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "firstName")
+	@Column(name = "FIRSTNAME")
 	private String firstName;
 
-	@Column(name = "lastName")
+	@Column(name = "LASTNAME")
 	private String lastName;
 
 	public User(String firstName, String lastName) {

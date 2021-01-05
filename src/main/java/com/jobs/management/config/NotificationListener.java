@@ -1,7 +1,5 @@
 package com.jobs.management.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
@@ -29,8 +27,9 @@ public class NotificationListener extends JobExecutionListenerSupport {
 			log.info("!!! JOB FINISHED! Time to verify the results");
 
 			jdbcTemplate
-					.query("SELECT firstname, lastname FROM User", (u, row) -> new User(u.getString(1), u.getString(2)))
-					.forEach(user -> log.info("Found <" + user + "> in the database."));
+					.query("SELECT FIRSTNAME, LASTNAME FROM User", (u, row) -> new User(u.getString(1), u.getString(2)))
+					.forEach(user -> log.info("Found User in the database FirstName-{}, LastName-{}",
+							user.getFirstName(), user.getLastName()));
 		}
 	}
 }

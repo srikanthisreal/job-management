@@ -16,7 +16,7 @@ public class UserFieldSetMapper implements FieldSetMapper<User> {
 	public User mapFieldSet(FieldSet fieldSet) {
 		final User user = new User();
 		user.setFirstName(fieldSet.readString("firstName"));
-		user.setLastName(fieldSet.readString("lastNmae"));
+		user.setLastName(fieldSet.readString("lastName"));
 		return user;
 
 	}
